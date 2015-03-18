@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NavigationBarIos -->
+    <style name="NavigationBarIos">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- Icon -->
+    <style name="NavigationBarIos.Icon">
+        <item name="android:background">@drawable/selector_lib_willchun_ng_ios</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/lib_willchun_ng_ios_theme_color</item>
+    </style>
+
+    <!-- Title -->
+    <style name="NavigationBarIos.Title">
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLength">8</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/leanback_dark_gray</item>
+    </style>
+</resources>

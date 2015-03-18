@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- NavigationBarIos-->
+    <dimen name="lib_willchun_ng_ios_default_high_size">52dp</dimen>
+</resources>

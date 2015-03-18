@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/lib_willchun_layout_ng_ios_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lib_willchun_ng_ios_default_high_size"
+                android:background="#ffffff"
+                android:gravity="center_vertical">
+    <TextView
+              android:id="@+id/lib_willchun_layout_ng_title_tv"
+              style="@style/NavigationBarIos.Title"
+              android:layout_centerInParent="true"
+              android:text="@string/app_name" />
+
+    <TextView
+            android:id="@+id/lib_willchun_layout_ng_left_icon"
+            style="@style/NavigationBarIos.Icon"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="<"/>
+    <TextView
+            android:id="@+id/lib_willchun_layout_ng_right_icon"
+            style="@style/NavigationBarIos.Icon"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="★"/>
+
+
+</RelativeLayout>
