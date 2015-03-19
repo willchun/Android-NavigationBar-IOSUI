@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="NavigationBarTheme" parent="android:Theme.Light">
+        <!-- set Navigation height-->
         <item name="android:windowTitleSize">@dimen/lib_willchun_ng_ios_default_high_size</item>
+        <item name="android:windowTitleBackgroundStyle">@null</item>
     </style>
 </resources>
