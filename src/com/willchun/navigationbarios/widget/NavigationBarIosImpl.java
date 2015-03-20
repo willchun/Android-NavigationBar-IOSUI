@@ -22,16 +22,16 @@ public class NavigationBarIosImpl extends NavigationBarIos{
 
     @Override
     public void setLeftIcon(Icon icon) {
-
+        mNavigationBarIosView.setLeftIcon(icon);
     }
 
     @Override
     public void setRightIcon(Icon icon) {
-
+        mNavigationBarIosView.setRightIcon(icon);
     }
 
     @Override
     public void setTitle(CharSequence title) {
-
+        mNavigationBarIosView.setTitle(title);
     }
 }

@@ -8,7 +8,10 @@ package com.willchun.navigationbarios.widget;
  *@date 2015/3/19
  */
 public abstract class AbsNavigationBarIosView {
+
     private static final String TAG = "AbsNavigationBarIosView";
+
+
 
 
 }

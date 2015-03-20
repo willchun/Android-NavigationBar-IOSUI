@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--NavigationBarIos-->
+    <declare-styleable name="NavigationBarIos">
+        <attr name="NavigationBarIos_mode" format="enum">
+            <enum name="NAVIGATION_MODE_STANDARD" value="0"/>
+            <enum name="NAVIGATION_MODE_LIST" value="1"/>
+            <enum name="NAVIGATION_MODE_TABS" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

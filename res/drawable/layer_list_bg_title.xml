@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/lib_willchun_ng_ios_theme_bg_bottom_color" />
+        </shape>
+    </item>
+    <!-- 主体背景颜色值 -->
+    <item android:bottom="1px">
+        <shape>
+            <solid android:color="@color/lib_willchun_ng_ios_theme_bg_color" />
+        </shape>
+    </item>
+</layer-list>
