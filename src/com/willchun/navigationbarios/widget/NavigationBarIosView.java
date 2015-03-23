@@ -18,18 +18,18 @@ import android.widget.TextView;
 import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.icon.Icon;
 import com.willchun.navigationbarios.utils.IconfontUtil;
-import com.willchun.navigationbarios.utils.UIUtil;
 
 public class NavigationBarIosView extends AbsNavigationBarIosView{
     private static final String TAG = "NavigationBarIosView";
 
     private Activity mActivity;
-    private int mNavigationMode;
+
 
     private RelativeLayout mNavigationLayout;
     private TextView mTitleTV;
     private TextView mLeftIcon;
     private TextView mRightIcon;
+    private int mNavigationMode;
 
     private float mLayoutHeiht;
     private CharSequence mTitle;
@@ -64,10 +64,11 @@ public class NavigationBarIosView extends AbsNavigationBarIosView{
 
     private void initAttrs(){
         TypedArray a = mActivity.getTheme().obtainStyledAttributes(R.styleable.NavigationBarIos);
-
-
+        int mode = a.getInt(R.styleable.NavigationBarIos_NavigationBarIos_mode, NavigationBarIos.NAVIGATION_MODE_STANDARD);
+        setNavigationMode(mode);
         a.recycle();
     }
+
 
     private View id(int id){
         return mActivity.findViewById(id);
@@ -107,17 +108,64 @@ public class NavigationBarIosView extends AbsNavigationBarIosView{
         }
     }
 
-    public void setDisplayOptions(int options){
+    public void setNavigationMode(int mode){
+        int op = 0;
+        switch (mode){
+            case NavigationBarIos.NAVIGATION_MODE_STANDARD:
+                op = NavigationBarIos.DISPLAY_SHOW_TITLE | NavigationBarIos.DISPLAY_SHOW_LEFT_ICON | NavigationBarIos.DISPLAY_SHOW_RIGHT_ICON;
+                break;
+            case NavigationBarIos.NAVIGATION_MODE_LIST:
+
+                break;
+            case NavigationBarIos.NAVIGATION_MODE_TABS:
+
+                break;
+        }
+        if(op == 0){
+            throw new IllegalStateException(getClass().getName() + " Set Navigation Mode is failed, Please check navigation mode is effective");
+        }
+
+        mNavigationMode = mode;
+        setDisplayOptions(op);
+    }
+
+    private void setDisplayOptions(int options){
         final int flagsChanged = mDisplayOptions == -1 ? -1 : options ^ mDisplayOptions;
         mDisplayOptions = options;
 
         if ((flagsChanged & DISPLAY_ALL) != 0) {
+            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_TITLE) != 0){
+                mTitleTV.setVisibility(View.VISIBLE);
+            }else{
+                mTitleTV.setVisibility(View.GONE);
+            }
+
+            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_LEFT_ICON) != 0){
+                mLeftIcon.setVisibility(View.VISIBLE);
+            }else{
+                mLeftIcon.setVisibility(View.GONE);
+            }
+
+            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_RIGHT_ICON) != 0){
+                mRightIcon.setVisibility(View.VISIBLE);
+            }else{
+                mRightIcon.setVisibility(View.GONE);
+            }
+
+            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_LIST) != 0){
+
+            }else{
+
+            }
+
+            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_TABS) != 0){
+
+            }else{
+
+            }
 
         }
     }
-
-
-
 
 
 }
