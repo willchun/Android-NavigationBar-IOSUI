@@ -1,6 +1,7 @@
 package com.willchun.navigationbarios.widget;
 
 
+import android.view.View;
 import com.willchun.navigationbarios.icon.Icon;
 
 /**
@@ -54,6 +55,22 @@ public abstract class NavigationBarIos {
     public abstract void setRightIcon(Icon icon);
 
     public abstract void setTitle(CharSequence title);
+
+
+    /**
+     * NavigationBarIosListener 相关监听器
+     */
+    public interface NavigationBarIosListener{
+
+        public void onClickMenuItem(NavigationBarIosMenuItem item);
+
+        public void onClickLeftIcon();
+
+        public void onClickRightIcon();
+
+        public void onClickTitle();
+
+    }
 
 
 }

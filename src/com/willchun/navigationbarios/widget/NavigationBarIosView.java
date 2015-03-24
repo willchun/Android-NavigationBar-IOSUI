@@ -19,7 +19,7 @@ import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.icon.Icon;
 import com.willchun.navigationbarios.utils.IconfontUtil;
 
-public class NavigationBarIosView extends AbsNavigationBarIosView{
+public class NavigationBarIosView extends AbsNavigationBarIosView implements View.OnClickListener {
     private static final String TAG = "NavigationBarIosView";
 
     private Activity mActivity;
@@ -60,6 +60,10 @@ public class NavigationBarIosView extends AbsNavigationBarIosView{
         mTitleTV =  text(R.id.lib_willchun_layout_ng_title_tv);
         mLeftIcon = text(R.id.lib_willchun_layout_ng_left_icon);
         mRightIcon = text(R.id.lib_willchun_layout_ng_right_icon);
+
+        mTitleTV.setOnClickListener(this);
+        mLeftIcon.setOnClickListener(this);
+        mRightIcon.setOnClickListener(this);
     }
 
     private void initAttrs(){
@@ -166,6 +170,25 @@ public class NavigationBarIosView extends AbsNavigationBarIosView{
 
         }
     }
+
+
+    @Override
+    public void onClick(View v) {
+        if(mNavigationBarIosMenuPresenter != null) {
+            if (v == mTitleTV) {
+                mNavigationBarIosMenuPresenter.setOnClickTitle(v);
+            } else if (v == mLeftIcon) {
+                mNavigationBarIosMenuPresenter.setOnClickLeftIcon(v);
+            } else if (v == mRightIcon) {
+                mNavigationBarIosMenuPresenter.setOnClickRightIcon(v);
+            }
+        }
+    }
+
+    public void setNavigationMenuPresenter(NavigationBarIosMenuPresenter presenter){
+        this.mNavigationBarIosMenuPresenter = presenter;
+    }
+
 
 
 }

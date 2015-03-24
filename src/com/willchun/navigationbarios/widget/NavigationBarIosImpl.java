@@ -13,6 +13,8 @@ import com.willchun.navigationbarios.icon.Icon;
 public class NavigationBarIosImpl extends NavigationBarIos{
 
     private NavigationBarIosView mNavigationBarIosView;
+    private NavigationBarIosMenuPresenter mNavigationBarIosMenuPresenter;
+
     private Activity mActivity;
 
     public NavigationBarIosImpl(Activity activity) {
@@ -34,4 +36,16 @@ public class NavigationBarIosImpl extends NavigationBarIos{
     public void setTitle(CharSequence title) {
         mNavigationBarIosView.setTitle(title);
     }
+
+    public void setNavigationBarIosListener(NavigationBarIosListener listener){
+        if(mNavigationBarIosMenuPresenter == null){
+            mNavigationBarIosMenuPresenter = new NavigationBarIosMenuPresenter(mActivity, listener);
+        }else{
+            mNavigationBarIosMenuPresenter.setmNavigationBarIosListener(listener);
+        }
+        if(mNavigationBarIosView != null){
+            mNavigationBarIosView.setNavigationMenuPresenter(mNavigationBarIosMenuPresenter);
+        }
+    }
+
 }

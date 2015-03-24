@@ -11,6 +11,7 @@ public abstract class AbsNavigationBarIosView {
 
     private static final String TAG = "AbsNavigationBarIosView";
 
+    protected NavigationBarIosMenuPresenter mNavigationBarIosMenuPresenter;
 
 
 

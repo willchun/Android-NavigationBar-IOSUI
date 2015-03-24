@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.view.Window;
 import com.willchun.navigationbarios.widget.NavigationBarIos;
 import com.willchun.navigationbarios.widget.NavigationBarIosImpl;
+import com.willchun.navigationbarios.widget.NavigationBarIosMenuItem;
 
 /**
  * Created by Administrator on 2015/3/20.
  */
-public class NavigationBarIosActivity extends Activity{
+public class NavigationBarIosActivity extends Activity implements NavigationBarIos.NavigationBarIosListener{
     /**
      * Called when the activity is first created.
      */
@@ -39,6 +40,7 @@ public class NavigationBarIosActivity extends Activity{
             return;
         }
         mNavigationBarIos = new NavigationBarIosImpl(this);
+        mNavigationBarIos.setNavigationBarIosListener(this);
     }
 
     @Override
@@ -50,5 +52,25 @@ public class NavigationBarIosActivity extends Activity{
     protected NavigationBarIos getNavigationBarIos(){
         initNavigationBarIos();
         return mNavigationBarIos;
+    }
+
+    @Override
+    public void onClickMenuItem(NavigationBarIosMenuItem item) {
+
+    }
+
+    @Override
+    public void onClickLeftIcon() {
+
+    }
+
+    @Override
+    public void onClickRightIcon() {
+
+    }
+
+    @Override
+    public void onClickTitle() {
+
     }
 }
