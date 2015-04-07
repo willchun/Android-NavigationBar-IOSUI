@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- NavigationBarIos-->
-    <color name="lib_willchun_ng_ios_theme_font_color">#fa5728</color>
-    <color name="lib_willchun_ng_ios_theme_bg_color">#ffffff</color>
+    <color name="lib_willchun_ng_ios_theme_font_color">#ffffff</color>
+    <color name="lib_willchun_ng_ios_theme_bg_color">#FE7800</color>
     <color name="lib_willchun_ng_ios_theme_bg_bottom_color">#BBBBBB</color>
     <color name="lib_willchun_ng_ios_transparent_color">#00000000</color>
-    <color name="lib_willchun_ng_ios_selected">#dddddd</color>
-    <color name="lib_willchun_ng_ios_title_color">#ff333333</color>
+    <color name="lib_willchun_ng_ios_selected">#55fa5728</color>
+    <color name="lib_willchun_ng_ios_title_color">#ffffff</color>
 </resources>

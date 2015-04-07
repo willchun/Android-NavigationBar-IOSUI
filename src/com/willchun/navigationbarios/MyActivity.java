@@ -21,7 +21,7 @@ public class MyActivity extends NavigationBarIosActivity{
 
         getNavigationBarIos().setTitle("天空之城");
         getNavigationBarIos().setLeftIcon(WillChunIcon.ICON_FANHUI);
-        getNavigationBarIos().setRightIcon(WillChunIcon.ICON_JIA);
+        getNavigationBarIos().setRightIcon(WillChunIcon.ICON_DINGXIANG, "上海");
 
     }
 

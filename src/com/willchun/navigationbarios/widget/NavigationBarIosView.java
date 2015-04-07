@@ -27,8 +27,8 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
 
     private RelativeLayout mNavigationLayout;
     private TextView mTitleTV;
-    private TextView mLeftIcon;
-    private TextView mRightIcon;
+    private NavigationBarIosMenuView mLeftIcon;
+    private NavigationBarIosMenuView mRightIcon;
     private int mNavigationMode;
 
     private float mLayoutHeiht;
@@ -58,8 +58,8 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
     private void initBindView(){
         mNavigationLayout = relayout(R.id.lib_willchun_layout_ng_ios_layout_rl);
         mTitleTV =  text(R.id.lib_willchun_layout_ng_title_tv);
-        mLeftIcon = text(R.id.lib_willchun_layout_ng_left_icon);
-        mRightIcon = text(R.id.lib_willchun_layout_ng_right_icon);
+        mLeftIcon = (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_left_icon);
+        mRightIcon = (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_right_icon);
 
         mTitleTV.setOnClickListener(this);
         mLeftIcon.setOnClickListener(this);
@@ -102,13 +102,29 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
 
     public void setLeftIcon(Icon icon){
         if(mLeftIcon != null){
-            IconfontUtil.setIcon(mActivity, mLeftIcon, icon);
+            mLeftIcon.setIcon(icon);
+        }
+    }
+
+    public void setLeftIcon(Icon icon, String content){
+        if(mLeftIcon != null){
+            mLeftIcon.setIcon(icon);
+            if(!TextUtils.isEmpty(content))
+                mLeftIcon.setContent(content);
         }
     }
 
     public void setRightIcon(Icon icon){
         if(mRightIcon != null){
-            IconfontUtil.setIcon(mActivity, mRightIcon, icon);
+            mRightIcon.setIcon(icon);
+        }
+    }
+
+    public void setRightIcon(Icon icon, String content){
+        if(mRightIcon != null){
+            mRightIcon.setIcon(icon);
+            if(!TextUtils.isEmpty(content))
+                mRightIcon.setContent(content);
         }
     }
 
@@ -188,7 +204,6 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
     public void setNavigationMenuPresenter(NavigationBarIosMenuPresenter presenter){
         this.mNavigationBarIosMenuPresenter = presenter;
     }
-
 
 
 }

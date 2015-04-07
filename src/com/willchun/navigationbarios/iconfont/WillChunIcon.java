@@ -7,7 +7,7 @@ import com.willchun.navigationbarios.icon.TypefaceManager;
 
 public enum WillChunIcon implements Icon {
     // @formatter:on
-    ICON_FANHUI(0xf0292), ICON_JIA(0xf0175);
+    ICON_FANHUI(0xf0292), ICON_JIA(0xf0175), ICON_DINGXIANG(0xf0295);
     //@formatter:off
 
     private final int mIconUtfValue;

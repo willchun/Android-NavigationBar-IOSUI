@@ -2,6 +2,7 @@ package com.willchun.navigationbarios.widget;
 
 
 import android.view.View;
+import android.widget.TextView;
 import com.willchun.navigationbarios.icon.Icon;
 
 /**
@@ -52,10 +53,13 @@ public abstract class NavigationBarIos {
 
     public abstract void setLeftIcon(Icon icon);
 
+    public abstract void setLeftIcon(Icon icon, String content);
+
     public abstract void setRightIcon(Icon icon);
 
-    public abstract void setTitle(CharSequence title);
+    public abstract void setRightIcon(Icon icon, String content);
 
+    public abstract void setTitle(CharSequence title);
 
     /**
      * NavigationBarIosListener 相关监听器

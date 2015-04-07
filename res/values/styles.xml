@@ -9,11 +9,8 @@
     <!-- Icon -->
     <style name="NavigationBarIos.Icon">
         <item name="android:background">@drawable/selector_lib_willchun_ng_ios</item>
-        <item name="android:textSize">20dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/lib_willchun_ng_ios_theme_font_color</item>
     </style>
 
     <!-- Title -->

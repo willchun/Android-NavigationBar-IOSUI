@@ -8,4 +8,10 @@
             <enum name="NAVIGATION_MODE_TABS" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="NavigationBarIosMenu">
+        <attr name="NavigationBarIosMenu_ICON_COLOR" format="color|reference"/>
+        <attr name="NavigationBarIosMenu_ICON_SIZE" format="dimension"/>
+    </declare-styleable>
+
 </resources>

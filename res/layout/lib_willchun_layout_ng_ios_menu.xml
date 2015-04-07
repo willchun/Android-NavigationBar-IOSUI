@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/lib_willchun_layout_ng_ios_menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lib_willchun_ng_ios_theme_font_color"
+            android:textSize="20sp"
+            android:singleLine="true"/>
+    <TextView
+            android:id="@+id/lib_willchun_layout_ng_ios_menu_content_tv"
+            android:textColor="@color/lib_willchun_ng_ios_theme_font_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/lib_willchun_layout_ng_ios_menu_icon"
+            android:layout_marginLeft="1dp"
+            android:layout_alignBaseline="@id/lib_willchun_layout_ng_ios_menu_icon"/>
+
+
+</RelativeLayout>

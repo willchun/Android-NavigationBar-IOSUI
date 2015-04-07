@@ -5,6 +5,7 @@ package com.willchun.navigationbarios.widget;/**
  */
 
 import android.app.Activity;
+import android.widget.TextView;
 import com.willchun.navigationbarios.icon.Icon;
 
 /**
@@ -28,14 +29,25 @@ public class NavigationBarIosImpl extends NavigationBarIos{
     }
 
     @Override
+    public void setLeftIcon(Icon icon, String content) {
+        mNavigationBarIosView.setLeftIcon(icon, content);
+    }
+
+    @Override
     public void setRightIcon(Icon icon) {
         mNavigationBarIosView.setRightIcon(icon);
+    }
+
+    @Override
+    public void setRightIcon(Icon icon, String content) {
+        mNavigationBarIosView.setRightIcon(icon, content);
     }
 
     @Override
     public void setTitle(CharSequence title) {
         mNavigationBarIosView.setTitle(title);
     }
+
 
     public void setNavigationBarIosListener(NavigationBarIosListener listener){
         if(mNavigationBarIosMenuPresenter == null){
