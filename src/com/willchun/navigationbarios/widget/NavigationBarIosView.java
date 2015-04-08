@@ -13,11 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.icon.Icon;
 import com.willchun.navigationbarios.utils.IconfontUtil;
+import com.willchun.navigationbarios.utils.UIUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NavigationBarIosView extends AbsNavigationBarIosView implements View.OnClickListener {
     private static final String TAG = "NavigationBarIosView";
@@ -26,10 +31,15 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
 
 
     private RelativeLayout mNavigationLayout;
-    private TextView mTitleTV;
+    private NavigationBarIosMenuView mTitleIcon;
     private NavigationBarIosMenuView mLeftIcon;
     private NavigationBarIosMenuView mRightIcon;
+
     private int mNavigationMode;
+
+    private LinearLayout mListLayout;
+    private ArrayList<NavigationBarIosMenuView> mViewMenus;
+    private int LIST_INTERVAL = 8;//list模式间隔的大小
 
     private float mLayoutHeiht;
     private CharSequence mTitle;
@@ -52,16 +62,17 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
     }
 
     private void initDefault(){
-
+        mViewMenus = new ArrayList<NavigationBarIosMenuView>();
     }
 
     private void initBindView(){
         mNavigationLayout = relayout(R.id.lib_willchun_layout_ng_ios_layout_rl);
-        mTitleTV =  text(R.id.lib_willchun_layout_ng_title_tv);
+        mTitleIcon =  (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_title_icon);
         mLeftIcon = (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_left_icon);
         mRightIcon = (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_right_icon);
+        mListLayout = (LinearLayout)id(R.id.lib_willchun_layout_ng_list_layout);
 
-        mTitleTV.setOnClickListener(this);
+        mTitleIcon.setOnClickListener(this);
         mLeftIcon.setOnClickListener(this);
         mRightIcon.setOnClickListener(this);
     }
@@ -87,16 +98,16 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
     }
 
 
-    public void setTitle(CharSequence title){
+    public void setTitle(String title){
         setTileImpl(title);
     }
 
-    private void setTileImpl(CharSequence title){
+    private void setTileImpl(String title){
         mTitle = title;
-        if(mTitleTV != null){
-            mTitleTV.setText(title);
+        if(mTitleIcon != null){
+            mTitleIcon.setTitle(title);
             final boolean visible = (mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_TITLE) != 0 && !TextUtils.isEmpty(mTitle);
-            mTitleTV.setVisibility(visible ? View.VISIBLE : View.GONE);
+            mTitleIcon.setVisibility(visible ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -135,7 +146,7 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
                 op = NavigationBarIos.DISPLAY_SHOW_TITLE | NavigationBarIos.DISPLAY_SHOW_LEFT_ICON | NavigationBarIos.DISPLAY_SHOW_RIGHT_ICON;
                 break;
             case NavigationBarIos.NAVIGATION_MODE_LIST:
-
+                op = NavigationBarIos.DISPLAY_SHOW_TITLE | NavigationBarIos.DISPLAY_SHOW_LEFT_ICON | NavigationBarIos.DISPLAY_SHOW_LIST;
                 break;
             case NavigationBarIos.NAVIGATION_MODE_TABS:
 
@@ -149,15 +160,24 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
         setDisplayOptions(op);
     }
 
+
+    public boolean isCurrentModeList(){
+        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_LIST ? true:false;
+    }
+
+    public boolean isCurrentModeStandard(){
+        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_STANDARD ? true:false;
+    }
+
     private void setDisplayOptions(int options){
         final int flagsChanged = mDisplayOptions == -1 ? -1 : options ^ mDisplayOptions;
         mDisplayOptions = options;
 
         if ((flagsChanged & DISPLAY_ALL) != 0) {
             if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_TITLE) != 0){
-                mTitleTV.setVisibility(View.VISIBLE);
+                mTitleIcon.setVisibility(View.VISIBLE);
             }else{
-                mTitleTV.setVisibility(View.GONE);
+                mTitleIcon.setVisibility(View.GONE);
             }
 
             if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_LEFT_ICON) != 0){
@@ -173,9 +193,9 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
             }
 
             if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_LIST) != 0){
-
+                mListLayout.setVisibility(View.VISIBLE);
             }else{
-
+                mListLayout.setVisibility(View.GONE);
             }
 
             if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_TABS) != 0){
@@ -187,16 +207,60 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
         }
     }
 
+    protected void requestListLayout(){
+        if(mViewMenus != null && mViewMenus.size() > 0) {
+            mListLayout.removeAllViews();
+            int width = UIUtil.dip2px(mActivity, LIST_INTERVAL);
+            int size = mViewMenus.size();
+            for (int i=0; i<size; i++) {
+                //增加间隔
+                if(i != 0){
+                    TextView intervalView = new TextView(mActivity);
+                    intervalView.setWidth(width);
+                    mListLayout.addView(intervalView);
+                }
+                mListLayout.addView(mViewMenus.get(i));
+                mViewMenus.get(i).setOnClickListener(this);
+            }
+        }
+    }
+
+    public void setListMenu(List<NavigationBarIosMenuView> menus){
+        if(mViewMenus != null)
+            mViewMenus.clear();
+
+        if(menus != null && menus.size() > 0){
+            mViewMenus.addAll(menus);
+        }
+    }
+
+    public void addListMenu(NavigationBarIosMenuView menu){
+        if(mViewMenus == null|| menu == null)
+            return;
+
+        mViewMenus.add(menu);
+    }
 
     @Override
     public void onClick(View v) {
+        if(v instanceof NavigationBarIosMenuView)
         if(mNavigationBarIosMenuPresenter != null) {
-            if (v == mTitleTV) {
-                mNavigationBarIosMenuPresenter.setOnClickTitle(v);
+            if (v == mTitleIcon) {
+                mNavigationBarIosMenuPresenter.setOnClickTitle((NavigationBarIosMenuView)v);
             } else if (v == mLeftIcon) {
-                mNavigationBarIosMenuPresenter.setOnClickLeftIcon(v);
+                mNavigationBarIosMenuPresenter.setOnClickLeftIcon((NavigationBarIosMenuView)v);
             } else if (v == mRightIcon) {
-                mNavigationBarIosMenuPresenter.setOnClickRightIcon(v);
+                mNavigationBarIosMenuPresenter.setOnClickRightIcon((NavigationBarIosMenuView)v);
+            } else if (mNavigationMode == NavigationBarIos.NAVIGATION_MODE_LIST){
+
+                for(NavigationBarIosMenuView menu : mViewMenus){
+                    if(menu == v){
+                        mNavigationBarIosMenuPresenter.setOnListSelected((NavigationBarIosMenuView)v);
+                        return;
+                    }
+                }
+            } else if (mNavigationMode == NavigationBarIos.NAVIGATION_MODE_TABS){
+
             }
         }
     }

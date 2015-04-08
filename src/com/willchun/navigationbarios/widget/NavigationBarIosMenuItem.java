@@ -21,19 +21,23 @@ public class NavigationBarIosMenuItem {
         TYPE_TAB
     }
 
-    public NavigationBarIosMenuItemType type;
-    public View root;
+    public static final int ITEM_ID_TITLE = -1;
+    public static final int ITEM_ID_LEFT = -2;
+    public static final int ITEM_ID_RIGHT = -3;
 
+    public NavigationBarIosMenuItemType type;
+    public NavigationBarIosMenuView menuView;
+    public int id;
 
     public NavigationBarIosMenuItem(){
         type = NavigationBarIosMenuItemType.TYPE_ITEM;
     }
 
-    public NavigationBarIosMenuItem(NavigationBarIosMenuItemType type, View view){
+    public NavigationBarIosMenuItem(NavigationBarIosMenuItemType type, NavigationBarIosMenuView view, int id){
         this.type = type;
-        this.root = view;
+        this.menuView = view;
+        this.id = id;
     }
-
 
 
     public interface onMenuItemClickListener {

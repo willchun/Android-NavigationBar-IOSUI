@@ -5,8 +5,12 @@ package com.willchun.navigationbarios.widget;/**
  */
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.widget.TextView;
+import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.icon.Icon;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2015/3/19.
@@ -15,6 +19,7 @@ public class NavigationBarIosImpl extends NavigationBarIos{
 
     private NavigationBarIosView mNavigationBarIosView;
     private NavigationBarIosMenuPresenter mNavigationBarIosMenuPresenter;
+    private ArrayList<NavigationBarIosMenuView> mListMenus = new ArrayList<NavigationBarIosMenuView>();
 
     private Activity mActivity;
 
@@ -44,8 +49,50 @@ public class NavigationBarIosImpl extends NavigationBarIos{
     }
 
     @Override
-    public void setTitle(CharSequence title) {
+    public void setTitle(String title) {
         mNavigationBarIosView.setTitle(title);
+    }
+
+    @Override
+    public void setNavigationMode(int mode) {
+        mNavigationBarIosView.setNavigationMode(mode);
+    }
+
+    @Override
+    public NavigationBarIos addListItem(Icon icon, String content, int id) {
+        if(mNavigationBarIosView == null){
+            throw new NullPointerException("NavigationBarIosView is null");
+        }
+        if(!mNavigationBarIosView.isCurrentModeList()){
+            throw new IllegalStateException("current Navigation Mode is not list, please set list mode");
+        }
+        if(mListMenus == null){
+            mListMenus = new ArrayList<NavigationBarIosMenuView>();
+        }
+
+        NavigationBarIosMenuView menu = new NavigationBarIosMenuView(mActivity);
+        if(icon != null){
+            menu.setIcon(icon);
+        }
+        if(!TextUtils.isEmpty(content)){
+            menu.setContent(content);
+        }
+        menu.setTag(id);
+        mListMenus.add(menu);
+        return this;
+    }
+
+    @Override
+    public void commit() {
+        if(mNavigationBarIosView == null){
+            throw new NullPointerException("NavigationBarIosView is null");
+        }
+        if(mNavigationBarIosView.isCurrentModeList()){
+            mNavigationBarIosView.setListMenu(mListMenus);
+            mNavigationBarIosView.requestListLayout();
+        }
+
+        mListMenus.clear();
     }
 
 
@@ -59,5 +106,7 @@ public class NavigationBarIosImpl extends NavigationBarIos{
             mNavigationBarIosView.setNavigationMenuPresenter(mNavigationBarIosMenuPresenter);
         }
     }
+
+
 
 }

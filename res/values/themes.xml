@@ -5,6 +5,7 @@
         <item name="android:windowTitleSize">@dimen/lib_willchun_ng_ios_default_high_size</item>
         <!-- clean default window title background -->
         <item name="android:windowTitleBackgroundStyle">@null</item>
-        <!-- -->
+        <!-- mode -->
+        <!--<item name="NavigationBarIos_mode">NAVIGATION_MODE_LIST</item>-->
     </style>
 </resources>

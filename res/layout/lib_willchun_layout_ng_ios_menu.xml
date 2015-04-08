@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical">
+
+    <TextView
+            android:id="@+id/lib_willchun_layout_ng_ios_menu_title_tv"
+            style="@style/NavigationBarIos.Title"/>
 
     <TextView
             android:id="@+id/lib_willchun_layout_ng_ios_menu_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textColor="@color/lib_willchun_ng_ios_theme_font_color"
             android:textSize="20sp"
+            android:gravity="center_vertical"
             android:singleLine="true"/>
     <TextView
             android:id="@+id/lib_willchun_layout_ng_ios_menu_content_tv"
             android:textColor="@color/lib_willchun_ng_ios_theme_font_color"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:singleLine="true"
+            android:gravity="center_vertical"
             android:textSize="16sp"
             android:layout_toRightOf="@id/lib_willchun_layout_ng_ios_menu_icon"
             android:layout_marginLeft="1dp"

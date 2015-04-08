@@ -26,27 +26,34 @@ public class NavigationBarIosMenuPresenter{
         mNavigationBarIosListener = listener;
     }
 
-    public void setOnClickLeftIcon(View view){
+    public void setOnClickLeftIcon(NavigationBarIosMenuView menu){
         if(mNavigationBarIosListener != null){
-            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_LEFT, view);
+            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_LEFT, menu, NavigationBarIosMenuItem.ITEM_ID_LEFT);
             mNavigationBarIosListener.onClickMenuItem(item);
             mNavigationBarIosListener.onClickLeftIcon();
         }
     }
 
-    public void setOnClickRightIcon(View view){
+    public void setOnClickRightIcon(NavigationBarIosMenuView menu){
         if(mNavigationBarIosListener != null){
-            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_RIGHT, view);
+            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_RIGHT, menu, NavigationBarIosMenuItem.ITEM_ID_RIGHT);
             mNavigationBarIosListener.onClickMenuItem(item);
             mNavigationBarIosListener.onClickRightIcon();
         }
     }
 
-    public void setOnClickTitle(View view){
+    public void setOnClickTitle(NavigationBarIosMenuView menu){
         if(mNavigationBarIosListener != null){
-            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_TITLE, view);
+            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_TITLE, menu, NavigationBarIosMenuItem.ITEM_ID_TITLE);
             mNavigationBarIosListener.onClickMenuItem(item);
             mNavigationBarIosListener.onClickTitle();
+        }
+    }
+
+    public void setOnListSelected(NavigationBarIosMenuView menu){
+        if(mNavigationBarIosListener != null){
+            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_LIST, menu, (Integer)menu.getTag());
+            mNavigationBarIosListener.onClickMenuItem(item);
         }
     }
 

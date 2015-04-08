@@ -59,8 +59,13 @@ public abstract class NavigationBarIos {
 
     public abstract void setRightIcon(Icon icon, String content);
 
-    public abstract void setTitle(CharSequence title);
+    public abstract void setTitle(String title);
 
+    public abstract void setNavigationMode(int mode);
+
+    public abstract NavigationBarIos addListItem(Icon icon, String content, int id);
+
+    public abstract void commit();
     /**
      * NavigationBarIosListener 相关监听器
      */

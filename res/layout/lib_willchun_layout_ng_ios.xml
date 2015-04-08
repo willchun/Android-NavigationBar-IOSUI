@@ -6,9 +6,10 @@
                 android:layout_height="@dimen/lib_willchun_ng_ios_default_high_size"
                 android:gravity="center_vertical"
                 android:background="@drawable/layer_list_bg_title">
-    <TextView
-              android:id="@+id/lib_willchun_layout_ng_title_tv"
-              style="@style/NavigationBarIos.Title"
+    <com.willchun.navigationbarios.widget.NavigationBarIosMenuView
+              android:id="@+id/lib_willchun_layout_ng_title_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:layout_centerInParent="true" />
 
     <com.willchun.navigationbarios.widget.NavigationBarIosMenuView
@@ -25,5 +26,12 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>
-
+    <LinearLayout
+            android:id="@+id/lib_willchun_layout_ng_list_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal"/>
 </RelativeLayout>
