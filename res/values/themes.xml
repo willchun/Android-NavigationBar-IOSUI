@@ -6,6 +6,6 @@
         <!-- clean default window title background -->
         <item name="android:windowTitleBackgroundStyle">@null</item>
         <!-- mode -->
-        <!--<item name="NavigationBarIos_mode">NAVIGATION_MODE_LIST</item>-->
+        <item name="NavigationBarIos_mode">NAVIGATION_MODE_STANDARD</item>
     </style>
 </resources>

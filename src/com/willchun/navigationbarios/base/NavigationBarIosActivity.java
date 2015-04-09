@@ -5,8 +5,11 @@ package com.willchun.navigationbarios.base;/**
  */
 
 import android.app.Activity;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
+import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.widget.NavigationBarIos;
 import com.willchun.navigationbarios.widget.NavigationBarIosImpl;
 import com.willchun.navigationbarios.widget.NavigationBarIosMenuItem;
@@ -19,10 +22,18 @@ public class NavigationBarIosActivity extends Activity implements NavigationBarI
      * Called when the activity is first created.
      */
     private NavigationBarIosImpl mNavigationBarIos;
+    private boolean isNavigationBar =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
+        TypedArray a = getTheme().obtainStyledAttributes(R.styleable.NavigationBarIos);
+        int mode = a.getInt(R.styleable.NavigationBarIos_NavigationBarIos_mode, -1);
+        a.recycle();
+
+        if(mode != -1){
+            isNavigationBar = true;
+            getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -30,6 +41,10 @@ public class NavigationBarIosActivity extends Activity implements NavigationBarI
      * 初始化NavigationBarIos
      */
     private void initNavigationBarIos(){
+        if(!isNavigationBar){
+            return;
+        }
+
         Window window = getWindow();
 
         // Initializing the window decor can change window feature flags.
@@ -39,6 +54,9 @@ public class NavigationBarIosActivity extends Activity implements NavigationBarI
         if (isChild() || !window.hasFeature(Window.FEATURE_CUSTOM_TITLE) || mNavigationBarIos != null) {
             return;
         }
+
+
+
         mNavigationBarIos = new NavigationBarIosImpl(this);
         mNavigationBarIos.setNavigationBarIosListener(this);
     }

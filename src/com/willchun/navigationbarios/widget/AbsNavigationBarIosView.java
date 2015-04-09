@@ -13,6 +13,4 @@ public abstract class AbsNavigationBarIosView {
 
     protected NavigationBarIosMenuPresenter mNavigationBarIosMenuPresenter;
 
-
-
 }
