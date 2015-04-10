@@ -18,14 +18,14 @@ public class MyActivity extends NavigationBarIosActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        //getNavigationBarIos().setNavigationMode(NavigationBarIos.NAVIGATION_MODE_LIST);
+        getNavigationBarIos().setNavigationMode(NavigationBarIos.NAVIGATION_MODE_LIST);
         getNavigationBarIos().setTitle("天空之城");
         getNavigationBarIos().setLeftIcon(WillChunIcon.ICON_FANHUI);
         getNavigationBarIos().setRightIcon(WillChunIcon.ICON_DINGXIANG, "上海");
 
-//        getNavigationBarIos().addListItem(WillChunIcon.ICON_DINGXIANG, null, 0).
-//                addListItem(WillChunIcon.ICON_JIA, null, 1).
-//                addListItem(null, "测试", 2).commit();
+        getNavigationBarIos().addListItem(WillChunIcon.ICON_DINGXIANG, null, 0).
+                addListItem(WillChunIcon.ICON_JIA, null, 1).
+                addListItem(null, "测试", 2).commit();
     }
 
     @Override

@@ -174,31 +174,31 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
         mDisplayOptions = options;
 
         if ((flagsChanged & DISPLAY_ALL) != 0) {
-            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_TITLE) != 0){
+            if((mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_TITLE) != 0){
                 mTitleIcon.setVisibility(View.VISIBLE);
             }else{
                 mTitleIcon.setVisibility(View.GONE);
             }
 
-            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_LEFT_ICON) != 0){
+            if((mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_LEFT_ICON) != 0){
                 mLeftIcon.setVisibility(View.VISIBLE);
             }else{
                 mLeftIcon.setVisibility(View.GONE);
             }
 
-            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_RIGHT_ICON) != 0){
+            if((mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_RIGHT_ICON) != 0){
                 mRightIcon.setVisibility(View.VISIBLE);
             }else{
                 mRightIcon.setVisibility(View.GONE);
             }
 
-            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_LIST) != 0){
+            if((mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_LIST) != 0){
                 mListLayout.setVisibility(View.VISIBLE);
             }else{
                 mListLayout.setVisibility(View.GONE);
             }
 
-            if((flagsChanged & NavigationBarIos.DISPLAY_SHOW_TABS) != 0){
+            if((mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_TABS) != 0){
 
             }else{
 
