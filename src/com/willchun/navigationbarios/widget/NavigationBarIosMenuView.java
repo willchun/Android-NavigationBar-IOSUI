@@ -23,6 +23,8 @@ public class NavigationBarIosMenuView extends BaseCustomView{
     private TextView mContentTV;
     private TextView mTitleTV;
 
+    private int padding = 0;
+
     public NavigationBarIosMenuView(Context context) {
         super(context);
         setSize(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -99,4 +101,17 @@ public class NavigationBarIosMenuView extends BaseCustomView{
     public void setTitle(String title){
         mTitleTV.setText(title);
     }
+
+    public void setBgAndFontColor(int bgId, int fontId){
+        setBackgroundColor(bgId);
+        mTitleTV.setTextColor(fontId);
+        mContentTV.setTextColor(fontId);
+        mIconTV.setTextColor(fontId);
+    }
+
+    public void setLeftAndRightPadding(int padding){
+        this.padding = padding;
+        setPadding(padding, 0, padding, 0);
+    }
+
 }

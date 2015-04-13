@@ -8,17 +8,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.icon.Icon;
-import com.willchun.navigationbarios.utils.IconfontUtil;
 import com.willchun.navigationbarios.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -38,12 +34,25 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
     private int mNavigationMode;
 
     private LinearLayout mListLayout;
-    private ArrayList<NavigationBarIosMenuView> mViewMenus;
-    private int LIST_INTERVAL = 8;//list模式间隔的大小
+    private ArrayList<NavigationBarIosMenuView> mViewListMenus;
+    private int mDefaultListInterval = 0;//list模式间隔的大小
+
+    private LinearLayout mTabsLayout;
+    private ArrayList<NavigationBarIosMenuView> mViewTabsMenus;
+    private int mSelectedMenuId = -1;//当前选中的MENU的id
+    private int mDefaultTabsPadding;
+
+
+    private int mTabsUnSelectBgColor = R.color.lib_willchun_ng_ios_title_color;
+    private int mTabsUnSelectTextColor = R.color.lib_willchun_ng_ios_theme_bg_color;
+    private int mTabsSelectBgColor = R.color.lib_willchun_ng_ios_theme_bg_color;
+    private int mTabsSelectTextColor = R.color.lib_willchun_ng_ios_title_color;
 
     private float mLayoutHeiht;
     private CharSequence mTitle;
     private int mDisplayOptions = -1;
+
+
 
     private final int DISPLAY_ALL =
             NavigationBarIos.DISPLAY_SHOW_LEFT_ICON |
@@ -62,7 +71,9 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
     }
 
     private void initDefault(){
-        mViewMenus = new ArrayList<NavigationBarIosMenuView>();
+        mDefaultListInterval = UIUtil.dip2px(mActivity, 8);
+        mViewListMenus = new ArrayList<NavigationBarIosMenuView>();
+        mViewTabsMenus = new ArrayList<NavigationBarIosMenuView>();
     }
 
     private void initBindView(){
@@ -71,6 +82,7 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
         mLeftIcon = (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_left_icon);
         mRightIcon = (NavigationBarIosMenuView)id(R.id.lib_willchun_layout_ng_right_icon);
         mListLayout = (LinearLayout)id(R.id.lib_willchun_layout_ng_list_layout);
+        mTabsLayout = (LinearLayout)id(R.id.lib_willchun_layout_ng_ios_tabs_layout);
 
         mTitleIcon.setOnClickListener(this);
         mLeftIcon.setOnClickListener(this);
@@ -87,6 +99,10 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
 
     private View id(int id){
         return mActivity.findViewById(id);
+    }
+
+    private int color(int id){
+        return mActivity.getResources().getColor(id);
     }
 
     private TextView text(int id){
@@ -149,7 +165,7 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
                 op = NavigationBarIos.DISPLAY_SHOW_TITLE | NavigationBarIos.DISPLAY_SHOW_LEFT_ICON | NavigationBarIos.DISPLAY_SHOW_LIST;
                 break;
             case NavigationBarIos.NAVIGATION_MODE_TABS:
-
+                op = NavigationBarIos.DISPLAY_SHOW_LEFT_ICON | NavigationBarIos.DISPLAY_SHOW_TABS;
                 break;
         }
         if(op == 0){
@@ -162,11 +178,15 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
 
 
     public boolean isCurrentModeList(){
-        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_LIST ? true:false;
+        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_LIST;
     }
 
     public boolean isCurrentModeStandard(){
-        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_STANDARD ? true:false;
+        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_STANDARD;
+    }
+
+    public boolean isCurrentModeTabs(){
+        return mNavigationMode == NavigationBarIos.NAVIGATION_MODE_TABS;
     }
 
     private void setDisplayOptions(int options){
@@ -199,46 +219,96 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
             }
 
             if((mDisplayOptions & NavigationBarIos.DISPLAY_SHOW_TABS) != 0){
-
+                mTabsLayout.setVisibility(View.VISIBLE);
             }else{
-
+                mTabsLayout.setVisibility(View.GONE);
             }
 
         }
     }
 
     protected void requestListLayout(){
-        if(mViewMenus != null && mViewMenus.size() > 0) {
+        if(mViewListMenus != null && mViewListMenus.size() > 0) {
             mListLayout.removeAllViews();
-            int width = UIUtil.dip2px(mActivity, LIST_INTERVAL);
-            int size = mViewMenus.size();
+            int size = mViewListMenus.size();
             for (int i=0; i<size; i++) {
                 //增加间隔
                 if(i != 0){
                     TextView intervalView = new TextView(mActivity);
-                    intervalView.setWidth(width);
+                    intervalView.setWidth(mDefaultListInterval);
                     mListLayout.addView(intervalView);
                 }
-                mListLayout.addView(mViewMenus.get(i));
-                mViewMenus.get(i).setOnClickListener(this);
+                mListLayout.addView(mViewListMenus.get(i));
+                mViewListMenus.get(i).setOnClickListener(this);
             }
         }
     }
 
-    public void setListMenu(List<NavigationBarIosMenuView> menus){
-        if(mViewMenus != null)
-            mViewMenus.clear();
+    protected void requestTabsLayout(){
+        if(mViewTabsMenus != null && mViewTabsMenus.size() > 0) {
+            mTabsLayout.removeAllViews();
+            int size = mViewTabsMenus.size();
+            for(int i=0; i<size; i++){
+                mTabsLayout.addView(mViewTabsMenus.get(i));
+                if(mDefaultTabsPadding > 0)
+                    mViewTabsMenus.get(i).setLeftAndRightPadding(mDefaultTabsPadding);
 
-        if(menus != null && menus.size() > 0){
-            mViewMenus.addAll(menus);
+                mViewTabsMenus.get(i).setOnClickListener(this);
+                //默认以第一个
+                if(mSelectedMenuId == -1 && i == 0){
+                    mSelectedMenuId = (Integer)mViewTabsMenus.get(i).getTag();
+                }
+            }
+
+            refreshTabsUI();
         }
     }
 
+    protected void refreshTabsUI(){
+        if(mViewTabsMenus != null){
+            for(NavigationBarIosMenuView menu : mViewTabsMenus){
+                if((Integer)menu.getTag() == mSelectedMenuId){
+                    menu.setBgAndFontColor(color(mTabsSelectBgColor), color(mTabsSelectTextColor));
+                }else{
+                    menu.setBgAndFontColor(color(mTabsUnSelectBgColor), color(mTabsUnSelectTextColor));
+                }
+            }
+        }
+    }
+
+    public void setDefaultTabsPadding(int padding){
+        mDefaultTabsPadding = padding;
+    }
+
+    public void setDefaultListInterval(int interval){
+        mDefaultListInterval = interval;
+    }
+
+    public void setListMenu(List<NavigationBarIosMenuView> menus){
+        if(mViewListMenus != null) {
+            mViewListMenus.clear();
+            if(menus != null && menus.size() > 0){
+                mViewListMenus.addAll(menus);
+            }
+        }
+
+    }
+
     public void addListMenu(NavigationBarIosMenuView menu){
-        if(mViewMenus == null|| menu == null)
+        if(mViewListMenus == null|| menu == null)
             return;
 
-        mViewMenus.add(menu);
+        mViewListMenus.add(menu);
+    }
+
+    public void setTabsMenu(List<NavigationBarIosMenuView> menus){
+        if(mViewTabsMenus != null) {
+            mViewTabsMenus.clear();
+            if(menus != null && menus.size() > 0){
+                mViewTabsMenus.addAll(menus);
+            }
+        }
+
     }
 
     @Override
@@ -253,14 +323,21 @@ public class NavigationBarIosView extends AbsNavigationBarIosView implements Vie
                 mNavigationBarIosMenuPresenter.setOnClickRightIcon((NavigationBarIosMenuView)v);
             } else if (mNavigationMode == NavigationBarIos.NAVIGATION_MODE_LIST){
 
-                for(NavigationBarIosMenuView menu : mViewMenus){
+                for(NavigationBarIosMenuView menu : mViewListMenus){
                     if(menu == v){
                         mNavigationBarIosMenuPresenter.setOnListSelected((NavigationBarIosMenuView)v);
                         return;
                     }
                 }
             } else if (mNavigationMode == NavigationBarIos.NAVIGATION_MODE_TABS){
-
+                for(NavigationBarIosMenuView menu : mViewTabsMenus){
+                    if(menu == v){
+                        mNavigationBarIosMenuPresenter.setOnTabsSelected((NavigationBarIosMenuView)v);
+                        mSelectedMenuId = (Integer)v.getTag();
+                        refreshTabsUI();
+                        return;
+                    }
+                }
             }
         }
     }

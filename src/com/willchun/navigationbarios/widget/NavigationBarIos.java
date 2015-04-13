@@ -65,7 +65,13 @@ public abstract class NavigationBarIos {
 
     public abstract NavigationBarIos addListItem(Icon icon, String content, int id);
 
+    public abstract NavigationBarIos addTabsItem(Icon icon, String content, int id);
+
     public abstract void commit();
+
+    public abstract  void setTabsPadding(int padding);
+
+    public abstract  void setListInterval(int interval);
     /**
      * NavigationBarIosListener 相关监听器
      */

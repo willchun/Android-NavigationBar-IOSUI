@@ -23,9 +23,14 @@ public class MyActivity extends NavigationBarIosActivity{
         getNavigationBarIos().setLeftIcon(WillChunIcon.ICON_FANHUI);
         getNavigationBarIos().setRightIcon(WillChunIcon.ICON_DINGXIANG, "上海");
 
+        getNavigationBarIos().setListInterval(50);
         getNavigationBarIos().addListItem(WillChunIcon.ICON_DINGXIANG, null, 0).
                 addListItem(WillChunIcon.ICON_JIA, null, 1).
                 addListItem(null, "测试", 2).commit();
+//        getNavigationBarIos().setTabsPadding(60);
+//        getNavigationBarIos().addTabsItem(WillChunIcon.ICON_DINGXIANG, null, 0)
+//                .addTabsItem(WillChunIcon.ICON_JIA, null, 1).addTabsItem(WillChunIcon.ICON_FANHUI, null, 2).commit();
+//
     }
 
     @Override
@@ -52,6 +57,9 @@ public class MyActivity extends NavigationBarIosActivity{
         //Toast.makeText(this, "onClickMenuItem", Toast.LENGTH_SHORT).show();
         if(item.type == NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_LIST){
             Toast.makeText(this, "onClickMenuListItem  id:" + item.id , Toast.LENGTH_SHORT).show();
+        }
+        if(item.type == NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_TAB){
+            Toast.makeText(this, "onClickMenuTabsItem  id:" + item.id , Toast.LENGTH_SHORT).show();
         }
     }
 }

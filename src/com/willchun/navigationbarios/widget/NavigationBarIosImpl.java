@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 import com.willchun.navigationbarios.R;
 import com.willchun.navigationbarios.icon.Icon;
+import com.willchun.navigationbarios.utils.UIUtil;
 
 import java.util.ArrayList;
 
@@ -20,12 +21,14 @@ public class NavigationBarIosImpl extends NavigationBarIos{
     private NavigationBarIosView mNavigationBarIosView;
     private NavigationBarIosMenuPresenter mNavigationBarIosMenuPresenter;
     private ArrayList<NavigationBarIosMenuView> mListMenus = new ArrayList<NavigationBarIosMenuView>();
+    private ArrayList<NavigationBarIosMenuView> mTabsMenus = new ArrayList<NavigationBarIosMenuView>();
 
     private Activity mActivity;
 
     public NavigationBarIosImpl(Activity activity) {
         mActivity = activity;
         mNavigationBarIosView = new NavigationBarIosView(activity);
+        mNavigationBarIosView.setDefaultTabsPadding(UIUtil.dip2px(mActivity, 32));
     }
 
     @Override
@@ -83,6 +86,30 @@ public class NavigationBarIosImpl extends NavigationBarIos{
     }
 
     @Override
+    public NavigationBarIos addTabsItem(Icon icon, String content, int id) {
+        if(mNavigationBarIosView == null){
+            throw new NullPointerException("NavigationBarIosView is null");
+        }
+        if(!mNavigationBarIosView.isCurrentModeTabs()){
+            throw new IllegalStateException("current Navigation Mode is not tabs, please set list mode");
+        }
+        if(mTabsMenus == null){
+            mTabsMenus = new ArrayList<NavigationBarIosMenuView>();
+        }
+
+        NavigationBarIosMenuView menu = new NavigationBarIosMenuView(mActivity);
+        if(icon != null){
+            menu.setIcon(icon);
+        }
+        if(!TextUtils.isEmpty(content)){
+            menu.setContent(content);
+        }
+        menu.setTag(id);
+        mTabsMenus.add(menu);
+        return this;
+    }
+
+    @Override
     public void commit() {
         if(mNavigationBarIosView == null){
             throw new NullPointerException("NavigationBarIosView is null");
@@ -92,7 +119,33 @@ public class NavigationBarIosImpl extends NavigationBarIos{
             mNavigationBarIosView.requestListLayout();
         }
 
-        mListMenus.clear();
+        if(mNavigationBarIosView.isCurrentModeTabs()){
+            mNavigationBarIosView.setTabsMenu(mTabsMenus);
+            mNavigationBarIosView.requestTabsLayout();
+        }
+
+        if(mListMenus != null)
+            mListMenus.clear();
+        if(mTabsMenus != null)
+            mTabsMenus.clear();
+    }
+
+    /**
+     * 设置Tabs menu的Padding属性  需要在创建Tabs Menu前使用
+     * @param padding
+     */
+    @Override
+    public void setTabsPadding(int padding) {
+        mNavigationBarIosView.setDefaultTabsPadding(UIUtil.dip2px(mActivity, padding));
+    }
+
+    /**
+     * 设置List menu的间隔属性 需要在创建List menu前使用
+     * @param interval
+     */
+    @Override
+    public void setListInterval(int interval) {
+        mNavigationBarIosView.setDefaultListInterval(UIUtil.dip2px(mActivity, interval));
     }
 
 

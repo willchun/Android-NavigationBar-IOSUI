@@ -57,5 +57,12 @@ public class NavigationBarIosMenuPresenter{
         }
     }
 
+    public void setOnTabsSelected(NavigationBarIosMenuView menu){
+        if(mNavigationBarIosListener != null){
+            NavigationBarIosMenuItem item = new NavigationBarIosMenuItem(NavigationBarIosMenuItem.NavigationBarIosMenuItemType.TYPE_TAB, menu, (Integer)menu.getTag());
+            mNavigationBarIosListener.onClickMenuItem(item);
+        }
+    }
+
 
 }

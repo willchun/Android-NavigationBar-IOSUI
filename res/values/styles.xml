@@ -21,4 +21,14 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/lib_willchun_ng_ios_title_color</item>
     </style>
+
+    <!-- Tabs -->
+    <style name="NavigationBarIos.Tabs">
+        <item name="android:padding">1dp</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:background">@color/lib_willchun_ng_ios_title_color</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 </resources>
