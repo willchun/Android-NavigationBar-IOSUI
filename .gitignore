@@ -1,3 +1,11 @@
 bin
 gen
 .settings
+.gradle
+out/*
+.idea/copyright/profiles_settings.xml
+.idea/misc.xml
+.idea/workspace.xml
+.idea/copyright/profiles_settings.xml
+.idea/misc.xml
+.idea/workspace.xml
